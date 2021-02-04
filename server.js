@@ -16,6 +16,15 @@ app.get('/wanted', (req, res) => {
     getAllWanted(1, res)
 })
 
+app.get('/wanted/person/:id', (req, res) => {
+    // make request to fbi api for info on person
+    axios.get('https://api.fbi.gov/@wanted-person/' + req.params.id)
+        .then(person => {
+            // send person obj back to client
+            res.json(person.data).end();
+        })
+})
+
 app.listen(PORT, () => {
     console.log('server listening on port ' + PORT)
 })
